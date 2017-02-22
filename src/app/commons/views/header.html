@@ -1,0 +1,36 @@
+<nav class="nav has-shadow" id="top" ng-controller="HeaderController as headerController">
+    <div class="container">
+        <div class="nav-left">
+        <a class="nav-item" href="/">
+            <img src="assets/images/maptrade_logo.png" alt="Description" class="logo">
+        </a>
+        </div>
+        <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+        </span>
+        <div class="nav-right nav-menu">
+        <a class="nav-item is-tab" href="/" ng-class="{'is-active': headerController.currentPath === '/home'}">
+            Home
+        </a>
+        <a class="nav-item is-tab" href="/#!/user" ng-class="{'is-active': headerController.currentPath === '/user'}">
+            Usuários
+        </a>
+        <a class="nav-item is-tab" href="/">
+            Sobre nós
+        </a>
+        <a class="nav-item is-tab" href="/">
+            Ajuda
+        </a>
+
+        <span class="nav-item">Olá, <strong>&nbsp;{{headerController.getUsername()}}</strong></span>
+
+        <span class="nav-item">
+            <a class="button is-primary" ng-click="headerController.logout()"> 
+            logout
+            </a>
+        </span>
+        </div>
+    </div>
+</nav>

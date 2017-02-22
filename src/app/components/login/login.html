@@ -1,0 +1,54 @@
+  <section class="hero is-fullheight">
+
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column is-4 is-offset-4">
+            
+            <form class="box form-login" name="LoginForm" ng-submit="loginCtrl.login(loginCtrl.user)">
+
+              <div class="notification is-danger" ng-show="loginCtrl.error">
+              <span class="delete" ng-click="loginCtrl.closeError()"></span>
+              Não foi possível realizar o login. Tente novamente
+              </div>
+
+              <img src="assets/images/maptrade_logo.png" alt="Description" class="logo">
+              
+              <label class="label">E-mail</label>
+              <div class="control has-icon">
+                <input class="input" type="email" placeholder="usuario@exemplo.com" ng-model="loginCtrl.user.login" required>
+                <span class="icon is-small">
+                  <i class="fa fa-envelope"></i>
+                </span>
+              </div>
+              
+              <label class="label">Senha</label> 
+              <div class="control has-icon">
+                <input class="input" type="password" placeholder="●●●●●●●" ng-model="loginCtrl.user.senha" required>
+                <span class="icon is-small">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+              
+              <hr>
+              
+              <div class="control">
+                <button class="button is-primary" ng-disabled="LoginForm.$invalid || loginCtrl.disabled" ng-class="{'is-loading': loginCtrl.loading}">Login</button>
+              </div>
+            
+            </form>
+            
+            <p class="has-text-centered">
+              <a href="register.html">Criar uma conta</a>
+              | 
+              <a href="#">Esqueceu a senha?</a>
+              | 
+              <a href="#">Ajuda</a>
+            </p>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>

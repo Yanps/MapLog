@@ -1,0 +1,66 @@
+<header class="header" ng-include="'app/commons/views/header.html'"></header>
+<section class="section">
+    <div class="container">
+
+      <div class="column is-12">
+          <div class="panel">
+            <div class="panel-heading">Editar Usuário</div>
+            <div class="panel-block">
+                <form style="width: 100%;">
+                    <label class="label">Nome</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Text input" ng-model="userCtrl.username">
+                    </div>       
+                    <label class="label">Email</label>
+                    <div class="control">
+                      <input class="input" type="email" placeholder="Text input" disabled ng-model="userCtrl.useremail">
+                    </div>
+                    <!--<hr>
+                    <label class="label">Senha atual</label>
+                    <div class="control">
+                      <input class="input" type="password" placeholder="Text input">
+                    </div>
+                    <label class="label">Nova senha</label>
+                    <div class="control">
+                      <input class="input" type="password" placeholder="Text input">
+                    </div>
+                    <label class="label">Confirmação de senha</label>
+                    <div class="control">
+                      <input class="input" type="password" placeholder="Text input">
+                    </div>-->
+                    <hr>
+                    <!--<label class="label">Selecione empresas</label>
+                    <div class="control">
+                      <span class="select">
+                        <select>
+                          <option>Select dropdown</option>
+                          <option>With options</option>
+                        </select>
+                      </span>
+                    </div>-->
+
+                    <label class="label">Empresas do usuário</label>
+                    <div class="control">
+                      <ul class="companies-list">
+                        <li ng-repeat="company in userCtrl.companies">
+                          <label class="checkbox">
+                            <input type="checkbox" value="{{company.id}}" disabled>
+                              {{company.nome}}
+                            </label>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <hr>
+                    <div class="control">
+                      <button class="button is-primary">Alterar</button>
+                      <!--<button class="button is-link">Cancelar</button>-->
+                    </div>
+
+                </form>
+            </div>
+          </div>
+      </div>
+
+    </div>
+</section>    

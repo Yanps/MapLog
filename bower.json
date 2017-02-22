@@ -1,0 +1,16 @@
+{
+  "name": "fountain-inject",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "1.0.0-beta.1",
+    "angular-cookies": "^1.6.2",
+    "angular-messages": "^1.6.2",
+    "ngMask": "angular-mask#^3.1.1",
+    "angular-input-masks": "^2.5.0",
+    "angular-native-datepicker": "angular-native-picker#^1.0.4"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.0"
+  }
+}

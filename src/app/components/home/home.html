@@ -1,0 +1,172 @@
+<header class="header" ng-include="'app/commons/views/header.html'"></header>
+<section class="section">
+  <div class="container">
+
+    <div class="column is-12">
+
+      <div class="box">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <label for="select-company">Selecione a empresa </label>
+            </div>
+
+            <div class="level-item">
+              <p class="control">
+                <span class="select">
+                        <select ng-if="!homeCtrl.currentCompany" ng-model="homeCtrl.company" ng-options="company.id as company.nome for company in homeCtrl.companies" ng-change="homeCtrl.searchNotes(homeCtrl.company)" ng-disabled="homeCtrl.disabled">
+                          <option ng-selected="true" value="">selecione um empresa</option>
+                        </select>
+                        <select ng-if="homeCtrl.currentCompany" ng-model="homeCtrl.company" ng-options="company.id as company.nome for company in homeCtrl.companies" ng-change="homeCtrl.searchNotes(homeCtrl.company)" ng-disabled="homeCtrl.disabled">
+                          <option ng-selected="true" value="">selecione um empresa</option>
+                        </select>
+                      </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="panel-heading">Acompanhamento de entregas</div>
+
+        <div class="panel-block" ng-if="!homeCtrl.company">
+          <p> Busque por uma empresa para verificar as notas</p>
+        </div>
+
+        <div class="panel-block" ng-if="homeCtrl.company">
+          <table class="table table-notes">
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>ID</th>
+                <th>Status da nota</th>
+                <th>Data de emissão</th>
+                <th>Expectativa coleta</th>
+                <th>Data da coleta</th>
+                <th>Expectativa entrega</th>
+                <th>Data da entrega</th>
+                <th>idAlterData</th>
+                <th>Cidade</th>
+                <th>UF</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="11" ng-show="homeCtrl.loading">
+                  <div class="loader"></div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="11" ng-hide="homeCtrl.loading || !homeCtrl.message">{{homeCtrl.message}}</td>
+              </tr>
+              <tr ng-repeat="note in homeCtrl.notes" ng-click="homeCtrl.openModal(note)">
+                <td>{{note.numero}}</td>
+                <td>{{note.id}}</td>
+                <td>{{note.statusNotaFiscal}}</td>
+                <td>{{note.dataEmissao | date : 'dd/MM/yyyy'}}</td>
+                <td>{{note.expectativaColeta | date : 'dd/MM/yyyy'}}</td>
+                <td>{{note.dataColeta | date : 'dd/MM/yyyy'}}</td>
+                <td>{{note.expectativaEntrega | date : 'dd/MM/yyyy'}}</td>
+                <td>{{note.dataEntrega | date : 'dd/MM/yyyy'}}</td>
+                <td>{{note.idAlterdata}}</td>
+                <td>{{note.cidade}}</td>
+                <td>{{note.uf}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel-block" ng-hide="homeCtrl.loading || homeCtrl.message || !homeCtrl.company">
+          <nav class="pagination is-centered is-fullwidth">
+            <a class="pagination-previous" ng-href="{{homeCtrl.pagination.previousLink}}" ng-disabled="homeCtrl.pagination.isFirstPage">anterior</a>
+            <a class="pagination-next" ng-href="{{homeCtrl.pagination.nextLink}}" ng-disabled="homeCtrl.pagination.isLastPage">próxima</a>
+            <ul class="pagination-list">
+              <li><a class="pagination-link" ng-href="{{homeCtrl.pagination.firstPage}}" ng-disabled="homeCtrl.pagination.isFirstPage">primeira página</a></li>
+              <li><span class="pagination-ellipsis">…</span></li>
+
+              <li ng-hide="homeCtrl.pagination.singlePage || homeCtrl.pagination.twoPages">
+                <a class="pagination-link" ng-href="{{homeCtrl.pagination.pageLink('One')}}" ng-class="{'is-current': homeCtrl.pagination.isFirstPage}">{{homeCtrl.pagination.pageOne()}}</a>
+              </li>
+
+              <li ng-hide="homeCtrl.pagination.singlePage || homeCtrl.pagination.twoPages">
+                <a class="pagination-link" ng-href="{{homeCtrl.pagination.pageLink('Two')}}" ng-class="{'is-current': !homeCtrl.pagination.isFirstPage && !homeCtrl.pagination.isLastPage}">{{homeCtrl.pagination.pageTwo()}}</a>
+              </li>
+
+              <li ng-hide="homeCtrl.pagination.singlePage || homeCtrl.pagination.twoPages">
+                <a class="pagination-link" ng-href="{{homeCtrl.pagination.pageLink('Three')}}" ng-class="{'is-current': homeCtrl.pagination.isLastPage}">{{homeCtrl.pagination.pageThree()}}</a>
+              </li>
+
+              <li ng-show="homeCtrl.pagination.singlePage">
+                <a class="pagination-link" ng-class="{'is-current': homeCtrl.pagination.isFirstPage}">1</a>
+              </li>
+
+              <li ng-show="homeCtrl.pagination.twoPages">
+                <a class="pagination-link" ng-href="{{homeCtrl.pagination.firstPage}}" ng-class="{'is-current': homeCtrl.pagination.isFirstPage}">1</a>
+              </li>
+
+              <li ng-show="homeCtrl.pagination.twoPages">
+                <a class="pagination-link" ng-href="{{homeCtrl.pagination.lastPage}}" ng-class="{'is-current': homeCtrl.pagination.isLastPage}">2</a>
+              </li>
+
+              <li><span class="pagination-ellipsis">…</span></li>
+              <li><a class="pagination-link" ng-href="{{homeCtrl.pagination.lastPage}}" ng-disabled="homeCtrl.pagination.isLastPage">última página</a></li>
+            </ul>
+          </nav>
+        </div>
+
+      </section>
+    </div>
+
+  </div>
+</section>
+
+<div class="modal" id="modal-edit">
+  <div class="modal-background"></div>
+  <form name="EditNoteForm" ng-submit="homeCtrl.updateNote(homeCtrl.currentNote, homeCtrl.modalData)" class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Editar nota - {{homeCtrl.currentNote.numero}}</p>
+      <button class="delete" ng-click="homeCtrl.closeModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <!-- Content ... -->
+
+      <div class="notification is-danger" ng-show="homeCtrl.errorModal">
+        <!--<span class="delete"></span>-->
+        Não foi possível atualizar essa nota
+      </div>
+
+      <div class="notification is-success" ng-show="homeCtrl.successModal">
+        <!--<span class="delete"></span>-->
+        Notal atualizada com sucesso
+      </div>
+
+      <label class="label">Expectativa da coleta</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="dd/mm/aaaa" name="expColeta" ng-model="homeCtrl.modalData.expectativaColeta" pick-a-date="date" pick-a-date-options="homeCtrl.datepicker.options">
+      </div>
+
+      <label class="label">Data da coleta {{homeCtrl.dataColeta}}</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="dd/mm/aaaa" name="dataColeta" ng-model="homeCtrl.modalData.dataColeta" pick-a-date="date" pick-a-date-options="homeCtrl.datepicker.options">
+      </div>
+
+      <hr>
+
+      <label class="label">Expectativa da entrega</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="dd/mm/aaaa"  name="expEntrega" ng-model="homeCtrl.modalData.expectativaEntrega" pick-a-date="date" pick-a-date-options="homeCtrl.datepicker.options">
+      </div>
+
+      <label class="label">Data da entrega</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="dd/mm/aaaa" name="dataEntrega" ng-model="homeCtrl.modalData.dataEntrega" pick-a-date="date" pick-a-date-options="homeCtrl.datepicker.options">
+      </div>
+
+    </section>
+    <footer class="modal-card-foot">
+      <button type="submit" class="button is-primary" ng-class="{'is-loading': homeCtrl.loadingModal}">Salvar</button>
+      <a class="button" ng-click="homeCtrl.closeModal()">Cancelar</a>
+    </footer>
+  </form>
+</div>

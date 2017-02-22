@@ -1,0 +1,55 @@
+.table-notes tbody  * {
+    cursor: pointer;
+}
+
+.header  .logo {
+    max-height: 3em;
+}
+
+.button.is-primary {
+  background-color: #ee8b2e;
+}
+
+.button.is-primary:hover, .button.is-primary.is-hovered {
+  background-color: #ee8b2e;
+}
+
+.button.is-primary:focus, .button.is-primary.is-focused {
+  box-shadow: 0 0 0.5em rgba(217, 95, 30, 0.25);
+}
+
+.button.is-primary:active, .button.is-primary.is-active {
+  background-color: #ee8b2e;
+}
+
+.form-login  .logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 3.5em;
+}
+
+.nav-item a.is-tab:hover,
+a.nav-item.is-tab:hover {
+  border-bottom-color: #ee8b2e;
+}
+
+.nav-item a.is-tab.is-active,
+a.nav-item.is-tab.is-active {
+  border-bottom: 3px solid #ee8b2e;
+  color: #ee8b2e;
+}
+
+.pagination-previous:focus,
+.pagination-next:focus,
+.pagination-link:focus {
+  border-color: #ee8b2e;
+}
+
+.pagination-link.is-current {
+  background-color: #ee8b2e;
+  border-color: #ee8b2e;
+}
+
+.pagination a {
+  color: #ee8b2e;
+}
